@@ -62,8 +62,8 @@ pca.duty(8,1000)
 import servo
 servos = servo.Servos(i2c)
 
-wifissid = 'yourwifissid'
-wifipass = 'yourwifipassword'
+wifissid = ''
+wifipass = ''
 
 sensor = HCSR04(trigger_pin=13, echo_pin=15)
 
@@ -197,19 +197,19 @@ def left_cruise (t=0):
   show("left cruise")
   for i in range(0, 8):
     if i > 3 :
-      servos.position(i, duty=speed  if i % 2 == 0 else minspeed)
+      servos.position(i, duty=speed  if i % 2 == 0 else 0)
     else :
-      servos.position(i, duty=speed  if i % 2 != 0 else minspeed)
+      servos.position(i, duty=0  if i % 2 != 0 else 0)
   if t > 0 :
     sleep_ms(t)
 
 def right_cruise (t=0):
   show("right cruise")
   for i in range(0, 8):
-   if i > 3 :
-     servos.position(i, duty=speed  if i % 2 != 0 else minspeed)
+   if i < 4  :
+     servos.position(i, duty=speed  if i % 2 == 0 else 0)
    else :
-     servos.position(i, duty=speed  if i % 2 == 0 else minspeed)
+     servos.position(i, duty=0  if i % 2 != 0 else 0)
   if t > 0 :
     sleep_ms(t)
 
